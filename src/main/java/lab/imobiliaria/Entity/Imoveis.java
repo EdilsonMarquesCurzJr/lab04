@@ -1,0 +1,44 @@
+package lab.imobiliaria.Entity;
+
+import lombok.Data;
+
+import javax.persistence.*;
+import java.math.BigDecimal;
+
+@Entity
+@Table(name = "IMOVEIS")
+public @Data class Imoveis {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    private Integer id;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ID_PROPRIETARIO")
+    private Cliente idProprietario;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ID_TIPO_IMOVEL")
+    private TipoImovel idTipoImovel;
+    @Column(name = "LOGRADOURO")
+    private String logradouro;
+    @Column(name = "BAIRRO")
+    private String bairro;
+    @Column(name = "CEP")
+    private String cep;
+    @Column(name = "METRAGEM")
+    private Integer metragem;
+    @Column(name = "DORMITORIOS")
+    private int dormitorios;
+    @Column(name = "BANHEIROS")
+    private int banheiros;
+    @Column(name = "SUITES")
+    private int suites;
+    @Column(name = "VAGAS_GARAGEM")
+    private int vagasGaragem;
+    @Column(name = "VALOR_ALUGEUL_SUGERIDO")
+    private BigDecimal valorAlugelSugerido;
+    @Column(name = "OBS")
+    private String obs;
+
+
+
+}
