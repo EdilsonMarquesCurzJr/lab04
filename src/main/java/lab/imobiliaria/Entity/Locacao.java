@@ -5,10 +5,11 @@ import lombok.Data;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "LOCACAO")
-public class Locacao {
+public @Data class Locacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -34,4 +35,19 @@ public class Locacao {
     @Column(name = "OBS")
     private String obs;
 
+    @Override
+    public String toString() {
+        return "Locacao{" +
+                "id=" + id +
+                ", idImovel=" + idImovel +
+                ", idInquilino=" + idInquilino +
+                ", valorAluguel=" + valorAluguel +
+                ", pecentualMulta=" + pecentualMulta +
+                ", dataVencimento=" + dataVencimento +
+                ", dataInicio=" + dataInicio +
+                ", dataFim=" + dataFim +
+                ", ativo=" + ativo +
+                ", obs='" + obs + '\'' +
+                '}';
+    }
 }

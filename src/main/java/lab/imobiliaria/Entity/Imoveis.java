@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "IMOVEIS")
@@ -40,5 +41,22 @@ public @Data class Imoveis {
     private String obs;
 
 
-
+    @Override
+    public String toString() {
+        return "Imoveis{" +
+                "id=" + id +
+                ", idProprietario=" + idProprietario +
+                ", idTipoImovel=" + idTipoImovel +
+                ", logradouro='" + logradouro + '\'' +
+                ", bairro='" + bairro + '\'' +
+                ", cep='" + cep + '\'' +
+                ", metragem=" + metragem +
+                ", dormitorios=" + dormitorios +
+                ", banheiros=" + banheiros +
+                ", suites=" + suites +
+                ", vagasGaragem=" + vagasGaragem +
+                ", valorAlugelSugerido=" + valorAlugelSugerido +
+                ", obs='" + obs + '\'' +
+                '}';
+    }
 }

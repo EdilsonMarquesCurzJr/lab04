@@ -23,4 +23,16 @@ public class Aluguel {
     private Date dataPagamento;
     @Column(name = "OBS")
     private String obs;
+
+    @Override
+    public String toString() {
+        return "Aluguel{" +
+                "id=" + id +
+                ", idLocacao=" + idLocacao +
+                ", dataVencimento=" + dataVencimento +
+                ", valorPago=" + valorPago +
+                ", dataPagamento=" + dataPagamento +
+                ", obs='" + obs + '\'' +
+                '}';
+    }
 }

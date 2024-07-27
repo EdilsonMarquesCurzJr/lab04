@@ -14,4 +14,12 @@ public @Data class TipoImovel {
     private Integer id;
     @Column(name = "DESCRICAO")
     private String descricao;
+
+    @Override
+    public String toString() {
+        return "TipoImovel{" +
+                "id=" + id +
+                ", descricao='" + descricao + '\'' +
+                '}';
+    }
 }

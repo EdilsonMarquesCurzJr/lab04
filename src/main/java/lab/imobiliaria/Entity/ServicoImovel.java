@@ -1,13 +1,14 @@
 package lab.imobiliaria.Entity;
 
+import lombok.Data;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "SERVICOS_IMOVEL")
-public class ServicoImovel {
+@Table(name = "SERVIÇOS_IMOVEL")
+public @Data class ServicoImovel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,4 +26,14 @@ public class ServicoImovel {
     private BigDecimal valorTotal;
     @Column(name = "OBS")
     private String obs;
+
+    @Override
+    public String toString() {
+        return "ServicoImovel{" +
+                "id=" + id +
+                ", dataServico=" + dataServico +
+                ", valorTotal=" + valorTotal +
+
+                '}';
+    }
 }
