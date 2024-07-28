@@ -1,9 +1,9 @@
 package lab.imobiliaria;
 
-import lab.imobiliaria.Entity.Cliente;
 import lab.imobiliaria.Entity.Imoveis;
-import lab.imobiliaria.Entity.Locacao;
-import lab.imobiliaria.Repository.LocacaoRepository;
+import lab.imobiliaria.Entity.Profissional;
+import lab.imobiliaria.Entity.ServicoImovel;
+import lab.imobiliaria.Repository.ServicoImovelRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,11 +15,6 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        // Configuração do EntityManager
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("lab_jpa");
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-
 
     }
 }
