@@ -26,9 +26,6 @@ public @Data class Aluguel {
     @Column(name = "OBS")
     private String obs;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_LOCACAO", insertable = false, updatable = false) // Evita duplicação
-    private Locacao locacao;
 
 
     @Override
