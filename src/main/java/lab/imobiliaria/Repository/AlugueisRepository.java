@@ -1,6 +1,7 @@
 package lab.imobiliaria.Repository;
 
 import lab.imobiliaria.Entity.Aluguel;
+import lab.imobiliaria.Entity.Cliente;
 import lab.imobiliaria.Entity.Locacao;
 
 import javax.persistence.EntityManager;
@@ -36,13 +37,16 @@ public class AlugueisRepository {
         return em.createQuery(cq).getResultList();
     }
 
-    public List<Aluguel> buscarAluguelPorNome(String nome){
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Aluguel> cq = cb.createQuery(Aluguel.class);
-        Root<Aluguel> root = cq.from(Aluguel.class);
-        cq.select(root);
-        cq.where(cb.equal(root.get("nome"), nome));
-        return em.createQuery(cq).getResultList();
+    public List<Aluguel> buscarAluguelPorNome(String nomeInquilino) {
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<Aluguel> query = builder.createQuery(Aluguel.class);
+        Root<Aluguel> root = query.from(Aluguel.class);
+        Join<Aluguel, Locacao> locacaoJoin = root.join("locacao");
+        Join<Locacao, Cliente> clienteJoin = locacaoJoin.join("idInquilino");
+
+        query.select(root).where(builder.equal(clienteJoin.get("nome"), nomeInquilino));
+
+        return em.createQuery(query).getResultList();
     }
 
     public List<Aluguel> recuperarAluguelPorLimitePreco(BigDecimal limitePreco) {
@@ -64,17 +68,7 @@ public class AlugueisRepository {
     }
 
     public List<Aluguel> recuperarAluguelPagoAtraso() {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Aluguel> cq = cb.createQuery(Aluguel.class);
-        Root<Aluguel> root = cq.from(Aluguel.class);
-        Join<Aluguel, Locacao> locacaoJoin = root.join("idLocacao");
-
-        // Condições para verificar se o pagamento foi feito com atraso
-        Predicate pagamentoAtrasadoPredicate = cb.greaterThan(root.get("dataPagamento"), locacaoJoin.get("dataFim"));
-
-        cq.select(root).where(pagamentoAtrasadoPredicate);
-
-        TypedQuery<Aluguel> query = em.createQuery(cq);
+        TypedQuery<Aluguel> query = em.createQuery("select a from Aluguel  a WHERE a.dataPagamento > a.dataVencimento", Aluguel.class);
         return query.getResultList();
     }
 
