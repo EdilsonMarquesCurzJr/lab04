@@ -17,6 +17,7 @@ public class LocacaoRepository {
 
     public void criarOuAtualizar(Locacao locacao) {
         EntityTransaction transaction = em.getTransaction();
+
         if (!transaction.isActive()) {
             transaction.begin();
         }
