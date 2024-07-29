@@ -38,34 +38,19 @@ public class AlugueisRepository {
     }
 
     public List<Aluguel> buscarAluguelPorNome(String nomeInquilino) {
-        CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<Aluguel> query = builder.createQuery(Aluguel.class);
-        Root<Aluguel> root = query.from(Aluguel.class);
-        Join<Aluguel, Locacao> locacaoJoin = root.join("locacao");
-        Join<Locacao, Cliente> clienteJoin = locacaoJoin.join("idInquilino");
-
-        query.select(root).where(builder.equal(clienteJoin.get("nome"), nomeInquilino));
-
-        return em.createQuery(query).getResultList();
+        String jpql = "select a from Aluguel a join a.idLocacao l join l.idInquilino c WHERE c.nome = :nome";
+        TypedQuery<Aluguel> query = em.createQuery(jpql, Aluguel.class);
+        query.setParameter("nome", nomeInquilino);
+        return query.getResultList();
     }
 
     public List<Aluguel> recuperarAluguelPorLimitePreco(BigDecimal limitePreco) {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Aluguel> cq = cb.createQuery(Aluguel.class);
-        Root<Aluguel> root = cq.from(Aluguel.class);
-
-        // Junção com a entidade Locacao
-        Join<Aluguel, Locacao> locacaoJoin = root.join("idLocacao");
-
-        // Criação da condição para o aluguel ser menor que o limite e a locação estar ativa
-        Predicate precoPredicate = cb.lessThan(root.get("valorPago"), limitePreco);
-        Predicate disponibilidadePredicate = cb.isTrue(locacaoJoin.get("ativo"));
-
-        cq.select(root).where(cb.and(precoPredicate, disponibilidadePredicate));
-
-        TypedQuery<Aluguel> query = em.createQuery(cq);
+        String jpql = "select a from Aluguel a join a.idLocacao l where l.valorAluguel < :limitePreco and l.idInquilino =null and l.ativo = true ";
+        TypedQuery<Aluguel> query = em.createQuery(jpql, Aluguel.class);
+        query.setParameter("limitePreco", limitePreco);
         return query.getResultList();
     }
+
 
     public List<Aluguel> recuperarAluguelPagoAtraso() {
         TypedQuery<Aluguel> query = em.createQuery("select a from Aluguel  a WHERE a.dataPagamento > a.dataVencimento", Aluguel.class);

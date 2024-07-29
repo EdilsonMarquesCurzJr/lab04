@@ -37,8 +37,6 @@ public @Data class Locacao {
     @Column(name = "OBS")
     private String obs;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "locacao")
-    private Set<Aluguel> alugueis;
 
     @Override
     public String toString() {

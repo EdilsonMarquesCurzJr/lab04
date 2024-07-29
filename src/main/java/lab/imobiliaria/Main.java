@@ -9,74 +9,63 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.math.BigDecimal;
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        // Inicializar EntityManager
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("lab_jpa");
         EntityManager em = emf.createEntityManager();
 
-        // Inicializar repositório
         AlugueisRepository alugueisRepository = new AlugueisRepository(em);
 
-        // Iniciar transação
         em.getTransaction().begin();
 
-        // Criar e salvar um cliente
         Cliente cliente = new Cliente();
         cliente.setNome("John Doe");
         cliente.setCpf("12345678900");
         cliente.setTelefone("123456789");
         cliente.setEmail("johndoe@example.com");
-        cliente.setDtNacimento(new Date(90, Calendar.JANUARY, 1)); // data de nascimento: 01/01/1990
+        cliente.setDtNacimento(Date.from(LocalDate.of(1990, 1, 1).atStartOfDay(ZoneId.systemDefault()).toInstant()));
 
         em.persist(cliente);
 
-        // Criar e salvar uma locação
         Locacao locacao = new Locacao();
-        locacao.setIdInquilino(cliente);
+
         locacao.setValorAluguel(new BigDecimal("1200.00"));
         locacao.setPecentualMulta(new BigDecimal("10.00"));
         locacao.setDataVencimento(5);
         locacao.setDataInicio(new Date());
-        locacao.setDataFim(new Date(2024, Calendar.JANUARY, 1)); // 1 ano depois
+        locacao.setDataFim(Date.from(LocalDate.of(2025, 1, 1).atStartOfDay(ZoneId.systemDefault()).toInstant()));
         locacao.setAtivo(true);
 
         em.persist(locacao);
 
-        // Criar e salvar um aluguel
         Aluguel aluguel = new Aluguel();
-        aluguel.setLocacao(locacao);
-        aluguel.setDataVencimento(new Date(2030, Calendar.JANUARY, 14));
+        aluguel.setIdLocacao(locacao);
+        aluguel.setDataVencimento(Date.from(LocalDate.of(2030, 1, 14).atStartOfDay(ZoneId.systemDefault()).toInstant()));
         aluguel.setValorPago(new BigDecimal("1200.00"));
-        aluguel.setDataPagamento(new Date(2031, Calendar.JANUARY, 1));
+        aluguel.setDataPagamento(Date.from(LocalDate.of(2031, 1, 1).atStartOfDay(ZoneId.systemDefault()).toInstant()));
         aluguel.setObs("Pagamento em dia");
 
         alugueisRepository.criarOuAtualizar(aluguel);
 
-        // Commit transação
         em.getTransaction().commit();
 
-        // Testar busca de todos os aluguéis
         List<Aluguel> alugueis = alugueisRepository.buscarTodos();
         System.out.println("Todos os aluguéis: " + alugueis);
 
-        // Testar busca por nome do inquilino
         List<Aluguel> alugueisPorNome = alugueisRepository.buscarAluguelPorNome("John Doe");
         System.out.println("Aluguéis por nome: " + alugueisPorNome);
 
-        // Testar busca por limite de preço
-        List<Aluguel> alugueisPorPreco = alugueisRepository.recuperarAluguelPorLimitePreco(new BigDecimal("1300.00"));
+        List<Aluguel> alugueisPorPreco = alugueisRepository.recuperarAluguelPorLimitePreco(new BigDecimal("500000000.00"));
         System.out.println("Aluguéis por limite de preço: " + alugueisPorPreco);
 
-        // Testar busca de aluguéis pagos em atraso
         List<Aluguel> alugueisAtraso = alugueisRepository.recuperarAluguelPagoAtraso();
         System.out.println("Aluguéis pagos em atraso: " + alugueisAtraso);
 
-        // Fechar EntityManager e EntityManagerFactory
         em.close();
         emf.close();
     }
