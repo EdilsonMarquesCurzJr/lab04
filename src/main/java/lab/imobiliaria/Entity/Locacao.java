@@ -1,11 +1,13 @@
 package lab.imobiliaria.Entity;
 
 import lombok.Data;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "LOCACAO")
@@ -35,6 +37,9 @@ public @Data class Locacao {
     @Column(name = "OBS")
     private String obs;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "locacao")
+    private Set<Aluguel> alugueis;
+
     @Override
     public String toString() {
         return "Locacao{" +
@@ -49,5 +54,12 @@ public @Data class Locacao {
                 ", ativo=" + ativo +
                 ", obs='" + obs + '\'' +
                 '}';
+    }
+
+    @PostLoad
+    @PostPersist
+    @PostUpdate
+    public void atualizarDisponibilidade() {
+        this.ativo = idInquilino == null;
     }
 }

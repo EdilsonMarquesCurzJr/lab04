@@ -1,8 +1,10 @@
 package lab.imobiliaria.Repository;
 
+import lab.imobiliaria.Entity.Imoveis;
 import lab.imobiliaria.Entity.Locacao;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -13,16 +15,26 @@ public class LocacaoRepository {
         this.em = em;
     }
 
-    public Locacao criarOuAtualizar(Locacao locacao) {
-        if (locacao != null) {
-            em.merge(locacao);
-        } else {
-            em.persist(locacao);
+    public void criarOuAtualizar(Locacao locacao) {
+        EntityTransaction transaction = em.getTransaction();
+        if (!transaction.isActive()) {
+            transaction.begin();
         }
-        return locacao;
+        try {
+            em.merge(locacao);
+            if (transaction.isActive()) {
+                transaction.commit();
+            }
+        } catch (Exception e) {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            throw e;
+        }
     }
 
-    public Locacao buscarPorId(Long id) {
+
+    public Locacao buscarPorId(Integer id) {
         return em.find(Locacao.class, id);
     }
 
@@ -34,6 +46,14 @@ public class LocacaoRepository {
         System.out.println("Número de locações encontradas: " + result.size());
         return result;
     }
+    public boolean verificarDisponibilidadeImovel(Integer imovelId) {
+        String jpql = "select l from Locacao l where l.idImovel.id = :imovelId and l.ativo = true";
+        TypedQuery<Locacao> query = em.createQuery(jpql, Locacao.class);
+        query.setParameter("imovelId", imovelId);
+        List<Locacao> result = query.getResultList();
+        return result.isEmpty();
+    }
+
 
 
 }

@@ -1,12 +1,14 @@
 package lab.imobiliaria.Entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
 @Table(name = "ALUGUEIS")
-public class Aluguel {
+public @Data class Aluguel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +25,11 @@ public class Aluguel {
     private Date dataPagamento;
     @Column(name = "OBS")
     private String obs;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_LOCACAO", insertable = false, updatable = false) // Evita duplicação
+    private Locacao locacao;
+
 
     @Override
     public String toString() {
