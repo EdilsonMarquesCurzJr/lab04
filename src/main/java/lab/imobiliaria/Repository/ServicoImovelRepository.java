@@ -1,8 +1,10 @@
 package lab.imobiliaria.Repository;
 
+import lab.imobiliaria.Entity.Locacao;
 import lab.imobiliaria.Entity.ServicoImovel;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class ServicoImovelRepository {
@@ -29,5 +31,12 @@ public class ServicoImovelRepository {
     public List<ServicoImovel> buscarTodos() {
         String jpql = "SELECT s FROM ServicoImovel s";
         return em.createQuery(jpql, ServicoImovel.class).getResultList();
+    }
+
+    public List<ServicoImovel> buscarServicosPorLocacao(Locacao locacao) {
+        String jpql = "SELECT s FROM ServicoImovel s WHERE s.idImovel = :idImovel";
+        TypedQuery<ServicoImovel> query = em.createQuery(jpql, ServicoImovel.class);
+        query.setParameter("idImovel", locacao.getIdImovel());
+        return query.getResultList();
     }
 }

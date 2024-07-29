@@ -4,7 +4,6 @@ import lab.imobiliaria.Entity.Imoveis;
 import lab.imobiliaria.Entity.Locacao;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -15,23 +14,15 @@ public class LocacaoRepository {
         this.em = em;
     }
 
-    public void criarOuAtualizar(Locacao locacao) {
-        EntityTransaction transaction = em.getTransaction();
-
-        if (!transaction.isActive()) {
-            transaction.begin();
-        }
-        try {
-            em.merge(locacao);
-            if (transaction.isActive()) {
-                transaction.commit();
+    public Locacao criarOuAtualizar(Locacao locacao) {
+        if(verificarDisponibilidadeImovel(locacao.getIdImovel())){
+            if(locacao.getId() != null){
+                return em.merge(locacao);
+            }else {
+                em.persist(locacao);
             }
-        } catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-            throw e;
         }
+        return locacao;
     }
 
 
@@ -47,7 +38,7 @@ public class LocacaoRepository {
         System.out.println("Número de locações encontradas: " + result.size());
         return result;
     }
-    public boolean verificarDisponibilidadeImovel(Integer imovelId) {
+    public boolean verificarDisponibilidadeImovel(Imoveis imovelId) {
         String jpql = "select l from Locacao l where l.idImovel.id = :imovelId and l.ativo = true";
         TypedQuery<Locacao> query = em.createQuery(jpql, Locacao.class);
         query.setParameter("imovelId", imovelId);

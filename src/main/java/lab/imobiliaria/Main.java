@@ -1,43 +1,64 @@
 package lab.imobiliaria;
 
+import lab.imobiliaria.Entity.Aluguel;
 import lab.imobiliaria.Entity.Locacao;
-import lab.imobiliaria.Repository.LocacaoRepository;
+import lab.imobiliaria.Repository.AlugueisRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("lab_jpa");
         EntityManager em = emf.createEntityManager();
-        LocacaoRepository locacaoRepository = new LocacaoRepository(em);
+        AlugueisRepository repository = new AlugueisRepository(em);
 
-        try {
-            // Testar criarOuAtualizar
-            Locacao locacao = new Locacao();
-            locacao.setId(1); // Assumindo que você está usando IDs auto-gerados, remova essa linha se não for o caso
-            locacao.setValorAluguel(new BigDecimal("1300.00"));
-            locacao.setAtivo(false);
-            locacaoRepository.criarOuAtualizar(locacao);
+        // Criar uma instância de Locacao
+        Locacao locacao = new Locacao();
+        locacao.setValorAluguel(new BigDecimal("1000"));
+        locacao.setPecentualMulta(new BigDecimal("0.05"));
+        locacao.setDataVencimento(5);
+        locacao.setDataInicio(new Date());
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, 1);
+        locacao.setDataFim(cal.getTime());
+        locacao.setAtivo(true);
 
-            // Testar buscarPorId
-            Locacao locacaoEncontrada = locacaoRepository.buscarPorId(1);
-            System.out.println("Locação encontrada: " + locacaoEncontrada);
+        // Persistir a locacao
+        em.getTransaction().begin();
+        em.persist(locacao);
+        em.getTransaction().commit();
 
-            // Testar buscarTodos
-            List<Locacao> locacoes = locacaoRepository.buscarTodos(1); // Substitua 1 pelo ID do cliente real
-            System.out.println("Locações encontradas: " + locacoes);
+        // Criar uma instância de Aluguel com pagamento em atraso
+        Aluguel aluguelAtrasado = new Aluguel();
+        aluguelAtrasado.setLocacao(locacao);
+        aluguelAtrasado.setDataVencimento(new Date());
+        aluguelAtrasado.setValorPago(new BigDecimal("1000"));
 
-            // Testar verificarDisponibilidadeImovel
-            boolean disponivel = locacaoRepository.verificarDisponibilidadeImovel(1); // Substitua 1 pelo ID do imóvel real
-            System.out.println("Imóvel disponível: " + disponivel);
+        // Definindo data de pagamento após o vencimento
+        cal.add(Calendar.DAY_OF_MONTH, 10);
+        aluguelAtrasado.setDataPagamento(cal.getTime());
 
-        } finally {
-            em.close();
-            emf.close();
+        // Persistir o aluguel
+        em.getTransaction().begin();
+        em.persist(aluguelAtrasado);
+        em.getTransaction().commit();
+
+        // Recuperar aluguéis pagos com atraso
+        List<Aluguel> aluguelsAtraso = repository.recuperarAluguelPagoAtraso();
+
+        // Exibir os resultados
+        System.out.println("Aluguéis pagos com atraso:");
+        for (Aluguel aluguel : aluguelsAtraso) {
+            System.out.println(aluguel);
         }
+
+        em.close();
+        emf.close();
     }
 }

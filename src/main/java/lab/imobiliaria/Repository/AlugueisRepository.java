@@ -63,5 +63,20 @@ public class AlugueisRepository {
         return query.getResultList();
     }
 
+    public List<Aluguel> recuperarAluguelPagoAtraso() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Aluguel> cq = cb.createQuery(Aluguel.class);
+        Root<Aluguel> root = cq.from(Aluguel.class);
+        Join<Aluguel, Locacao> locacaoJoin = root.join("idLocacao");
+
+        // Condições para verificar se o pagamento foi feito com atraso
+        Predicate pagamentoAtrasadoPredicate = cb.greaterThan(root.get("dataPagamento"), locacaoJoin.get("dataFim"));
+
+        cq.select(root).where(pagamentoAtrasadoPredicate);
+
+        TypedQuery<Aluguel> query = em.createQuery(cq);
+        return query.getResultList();
+    }
+
 
 }
