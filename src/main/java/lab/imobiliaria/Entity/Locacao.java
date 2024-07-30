@@ -6,6 +6,7 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -29,9 +30,9 @@ public @Data class Locacao {
     @Column(name = "DIA_VENCIMENTO")
     private int dataVencimento;
     @Column(name = "DATA_INICIO")
-    private Date dataInicio;
+    private LocalDate dataInicio;
     @Column(name = "DATA_FIM")
-    private Date dataFim;
+    private LocalDate dataFim;
     @Column(name = "ATIVO")
     private boolean ativo;
     @Column(name = "OBS")

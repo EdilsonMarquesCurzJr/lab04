@@ -4,7 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "ALUGUEIS")
@@ -14,15 +14,17 @@ public @Data class Aluguel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Integer id;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_LOCACAO")
     private Locacao idLocacao;
+
     @Column(name = "DATA_VENCIMENTO")
-    private Date dataVencimento;
+    private LocalDate dataVencimento;
     @Column(name = "VALOR_PAGO")
     private BigDecimal valorPago;
     @Column(name = "DATA_PAGAMENTO")
-    private Date dataPagamento;
+    private LocalDate dataPagamento;
     @Column(name = "OBS")
     private String obs;
 

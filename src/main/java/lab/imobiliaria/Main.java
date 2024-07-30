@@ -10,8 +10,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 
 public class Main {
@@ -28,7 +26,7 @@ public class Main {
         cliente.setCpf("12345678900");
         cliente.setTelefone("123456789");
         cliente.setEmail("johndoe@example.com");
-        cliente.setDtNacimento(Date.from(LocalDate.of(1990, 1, 1).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        cliente.setDtNacimento(LocalDate.of(1990, 1, 1));
 
         em.persist(cliente);
 
@@ -37,17 +35,17 @@ public class Main {
         locacao.setValorAluguel(new BigDecimal("1200.00"));
         locacao.setPecentualMulta(new BigDecimal("10.00"));
         locacao.setDataVencimento(5);
-        locacao.setDataInicio(new Date());
-        locacao.setDataFim(Date.from(LocalDate.of(2025, 1, 1).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        locacao.setDataInicio(LocalDate.of(2025,1,1));
+        locacao.setDataFim(LocalDate.of(2026, 1, 1));
         locacao.setAtivo(true);
 
         em.persist(locacao);
 
         Aluguel aluguel = new Aluguel();
         aluguel.setIdLocacao(locacao);
-        aluguel.setDataVencimento(Date.from(LocalDate.of(2030, 1, 14).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        aluguel.setDataVencimento(LocalDate.of(2025, 2, 4));
         aluguel.setValorPago(new BigDecimal("1200.00"));
-        aluguel.setDataPagamento(Date.from(LocalDate.of(2031, 1, 1).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        aluguel.setDataPagamento(LocalDate.of(2025, 2, 5));
         aluguel.setObs("Pagamento em dia");
 
         alugueisRepository.criarOuAtualizar(aluguel);

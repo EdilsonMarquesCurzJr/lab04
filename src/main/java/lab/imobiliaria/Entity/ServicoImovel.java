@@ -4,7 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "SERVIÇOS_IMOVEL")
@@ -21,7 +21,7 @@ public @Data class ServicoImovel {
     @JoinColumn(name = "ID_IMOVEL")
     private Imoveis idImovel;
     @Column(name = "DATA_SERVICO")
-    private Date dataServico;
+    private LocalDate dataServico;
     @Column(name = "VALOR_TOTAL")
     private BigDecimal valorTotal;
     @Column(name = "OBS")

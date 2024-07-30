@@ -3,7 +3,7 @@ package lab.imobiliaria.Entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -23,7 +23,7 @@ public @Data class Cliente {
     @Column(name = "EMAIL")
     private String email;
     @Column(name = "DT_NACIMENTO")
-    private Date dtNacimento;
+    private LocalDate dtNacimento;
 
     @OneToMany(mappedBy = "idProprietario")
     private List<Imoveis> imoveis;
