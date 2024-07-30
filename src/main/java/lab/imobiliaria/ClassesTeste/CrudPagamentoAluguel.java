@@ -26,11 +26,11 @@ public class CrudPagamentoAluguel {
 
         // Criação de entidades necessárias para o teste
         Cliente inquilino = new Cliente();
-        inquilino.setNome("João Silva");
+        inquilino.setNome("João Pedro");
         inquilino.setCpf("123.456.789-00");
-        inquilino.setTelefone("99999-9999");
-        inquilino.setEmail("joao.silva@example.com");
-        inquilino.setDtNacimento(LocalDate.of(1985, 1, 1));
+        inquilino.setTelefone("99199-9919");
+        inquilino.setEmail("joao.pedro@example.com");
+        inquilino.setDtNacimento(LocalDate.of(1975, 1, 1));
         manager.persist(inquilino);
 
         Cliente proprietario = new Cliente();
@@ -38,7 +38,7 @@ public class CrudPagamentoAluguel {
         proprietario.setCpf("987.654.321-00");
         proprietario.setTelefone("88888-8888");
         proprietario.setEmail("maria.oliveira@example.com");
-        proprietario.setDtNacimento(LocalDate.of(1975, 5, 20));
+        proprietario.setDtNacimento(LocalDate.of(1965, 5, 20));
         manager.persist(proprietario);
 
         TipoImovel tipoImovel = new TipoImovel();
@@ -50,7 +50,7 @@ public class CrudPagamentoAluguel {
         imovel.setIdTipoImovel(tipoImovel);
         imovel.setLogradouro("Rua das Flores, 123");
         imovel.setBairro("Centro");
-        imovel.setCep("12345-678");
+        imovel.setCep("12145-678");
         imovel.setMetragem(100);
         imovel.setDormitorios(3);
         imovel.setBanheiros(2);

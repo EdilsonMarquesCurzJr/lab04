@@ -25,11 +25,11 @@ public class CrudProfissional {
 
             // Criação de um cliente
             Cliente cliente = new Cliente();
-            cliente.setNome("João Silva");
-            cliente.setCpf("12345678900");
-            cliente.setTelefone("999999999");
-            cliente.setEmail("joao.silva@example.com");
-            cliente.setDtNacimento(LocalDate.of(1990, 1, 1));
+            cliente.setNome("Ruas Brasil");
+            cliente.setCpf("68745915278");
+            cliente.setTelefone("989574612");
+            cliente.setEmail("ruas.brasil@example.com");
+            cliente.setDtNacimento(LocalDate.of(2001, 2, 16));
             manager.persist(cliente);
 
             // Criação de um tipo de imóvel
@@ -41,16 +41,16 @@ public class CrudProfissional {
             Imoveis imovel = new Imoveis();
             imovel.setIdProprietario(cliente);
             imovel.setIdTipoImovel(tipoImovel);
-            imovel.setLogradouro("Rua das Flores");
+            imovel.setLogradouro("Rua da Alegria");
             imovel.setBairro("Centro");
-            imovel.setCep("12345-678");
-            imovel.setMetragem(85);
-            imovel.setDormitorios(3);
+            imovel.setCep("19845-678");
+            imovel.setMetragem(70);
+            imovel.setDormitorios(2);
             imovel.setBanheiros(2);
             imovel.setSuites(1);
-            imovel.setVagasGaragem(2);
+            imovel.setVagasGaragem(0);
             imovel.setValorAluguelSugerido(new BigDecimal("1500.00"));
-            imovel.setObs("Nenhuma observação");
+            imovel.setObs("Bom quintal.");
             manager.persist(imovel);
 
             // Criação de um profissional

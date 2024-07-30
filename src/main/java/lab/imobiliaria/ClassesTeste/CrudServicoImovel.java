@@ -23,11 +23,11 @@ public class CrudServicoImovel {
 
         // Criação das entidades necessárias
         Cliente cliente = new Cliente();
-        cliente.setNome("João Silva");
-        cliente.setCpf("12345678900");
-        cliente.setTelefone("999999999");
-        cliente.setEmail("joao.silva@example.com");
-        cliente.setDtNacimento(LocalDate.of(1990, 1, 1));
+        cliente.setNome("Kaua Dino");
+        cliente.setCpf("12345678999");
+        cliente.setTelefone("987451236");
+        cliente.setEmail("kaua.dino@example.com");
+        cliente.setDtNacimento(LocalDate.of(1998, 1, 1));
         manager.persist(cliente);
 
         TipoImovel tipoImovel = new TipoImovel();
@@ -37,24 +37,24 @@ public class CrudServicoImovel {
         Imoveis imovel = new Imoveis();
         imovel.setIdProprietario(cliente);
         imovel.setIdTipoImovel(tipoImovel);
-        imovel.setLogradouro("Rua das Flores");
-        imovel.setBairro("Centro");
-        imovel.setCep("12345-678");
+        imovel.setLogradouro("Rua da Saudade");
+        imovel.setBairro("Bequimão");
+        imovel.setCep("13245-678");
         imovel.setMetragem(85);
         imovel.setDormitorios(3);
         imovel.setBanheiros(2);
         imovel.setSuites(1);
         imovel.setVagasGaragem(2);
-        imovel.setValorAluguelSugerido(new BigDecimal("1500.00"));
+        imovel.setValorAluguelSugerido(new BigDecimal("2000.00"));
         imovel.setObs("Nenhuma observação");
         manager.persist(imovel);
 
         Profissional profissional = new Profissional();
-        profissional.setNome("Carlos Mendes");
-        profissional.setTelefone1("888888888");
-        profissional.setTelefone2("877777777");
-        profissional.setValorHora(new BigDecimal("50.00"));
-        profissional.setObs("Nenhuma observação");
+        profissional.setNome("Rafael Ramon");
+        profissional.setTelefone1("985461958");
+        profissional.setTelefone2("985741476");
+        profissional.setValorHora(new BigDecimal("70.00"));
+        profissional.setObs("Nenhuma observação.");
         manager.persist(profissional);
 
         // Criação do serviço no imóvel
@@ -63,7 +63,7 @@ public class CrudServicoImovel {
         servicoImovel.setIdImovel(imovel);
         servicoImovel.setDataServico(LocalDate.now());
         servicoImovel.setValorTotal(new BigDecimal("300.00"));
-        servicoImovel.setObs("Reparos gerais");
+        servicoImovel.setObs("Reparos de TI");
         manager.persist(servicoImovel);
 
         // Finalização da transação
@@ -93,13 +93,10 @@ public class CrudServicoImovel {
         locacao.setObs("Nenhuma observação");
         manager.persist(locacao);
 
-        // Certifique-se de ajustar o método se necessário, passando o ID do imóvel ou locação como parâmetro
         List<ServicoImovel> servicosPorLocacao = servicoImovelRepo.buscarServicosPorLocacao(locacao);
-        //servicoImovelRepo.listarServicosPorLocacao(locacao.getId());
 
         System.out.println("Serviços por locação: " + servicosPorLocacao);
 
-        // Encerrando a transação e liberando recursos
         manager.close();
         factory.close();
     }
