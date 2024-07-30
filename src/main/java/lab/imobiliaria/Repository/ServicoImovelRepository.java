@@ -33,10 +33,13 @@ public class ServicoImovelRepository {
         return em.createQuery(jpql, ServicoImovel.class).getResultList();
     }
 
+    // Dentro da classe ServicoImovelRepository
+
     public List<ServicoImovel> buscarServicosPorLocacao(Locacao locacao) {
-        String jpql = "SELECT s FROM ServicoImovel s WHERE s.idImovel = :idImovel";
+        String jpql = "SELECT s FROM ServicoImovel s WHERE s.idImovel.id = :imovelId";
         TypedQuery<ServicoImovel> query = em.createQuery(jpql, ServicoImovel.class);
-        query.setParameter("idImovel", locacao.getImovel().getId());
+        query.setParameter("imovelId", locacao.getImovel().getId());
         return query.getResultList();
     }
+
 }

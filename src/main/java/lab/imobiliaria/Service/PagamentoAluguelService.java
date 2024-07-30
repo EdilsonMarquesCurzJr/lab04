@@ -19,9 +19,12 @@ public class PagamentoAluguelService {
         this.repositorio = new AlugueisRepository(em);
     }
 
-    public BigDecimal registrarPagamentoAluguel (Aluguel aluguel, Locacao locacao ) {
-        try{
-            em.getTransaction().begin();
+    public BigDecimal registrarPagamentoAluguel(Aluguel aluguel, Locacao locacao) {
+        boolean transactionActive = em.getTransaction().isActive();
+        try {
+            if (!transactionActive) {
+                em.getTransaction().begin();
+            }
 
             BigDecimal valorAluguel = locacao.getValorAluguel();
             BigDecimal valorPago = valorAluguel;
@@ -47,10 +50,14 @@ public class PagamentoAluguelService {
 
             repositorio.criarOuAtualizar(aluguel);
 
-            em.getTransaction().commit();
+            if (!transactionActive) {
+                em.getTransaction().commit();
+            }
             return valorPago;
-        } catch (Exception e){
-            em.getTransaction().rollback();
+        } catch (Exception e) {
+            if (!transactionActive) {
+                em.getTransaction().rollback();
+            }
             throw new RuntimeException(e);
         }
     }

@@ -40,7 +40,7 @@ public class ImoveisRepository {
     }
 
     public List<Imoveis> findImoveisByProfissionalId(Integer profissionalId) {
-        String jpql = "SELECT i FROM Imoveis i JOIN ServicoImovel s ON i.id = s.idImovel WHERE s.idProfissional.id = :profissionalId";
+        String jpql = "SELECT i FROM Imoveis i JOIN ServicoImovel s ON i.id = s.idImovel.id WHERE s.idProfissional.id = :profissionalId";
         TypedQuery<Imoveis> query = manager.createQuery(jpql, Imoveis.class);
         query.setParameter("profissionalId", profissionalId);
         return query.getResultList();

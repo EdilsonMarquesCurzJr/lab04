@@ -18,7 +18,7 @@ public class CrudPagamentoAluguel {
 
     public static void main(String[] args) {
         // cenário
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("lab_imobiliaria");
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("lab_jpa");
         EntityManager manager = factory.createEntityManager();
         EntityTransaction transacao = manager.getTransaction();
 

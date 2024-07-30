@@ -13,7 +13,6 @@ import java.util.List;
 public class CrudServicoImovel {
 
     public static void main(String[] args) {
-
         // Configuração do cenário
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("lab_jpa");
         EntityManager manager = factory.createEntityManager();
@@ -94,6 +93,7 @@ public class CrudServicoImovel {
         locacao.setObs("Nenhuma observação");
         manager.persist(locacao);
 
+        // Certifique-se de ajustar o método se necessário, passando o ID do imóvel ou locação como parâmetro
         List<ServicoImovel> servicosPorLocacao = servicoImovelRepo.buscarServicosPorLocacao(locacao);
         System.out.println("Serviços por locação: " + servicosPorLocacao);
 

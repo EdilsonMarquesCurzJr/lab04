@@ -1,6 +1,8 @@
 package lab.imobiliaria.ClassesTeste;
 
-import lab.imobiliaria.Entity.*;
+import lab.imobiliaria.Entity.Cliente;
+import lab.imobiliaria.Entity.Imoveis;
+import lab.imobiliaria.Entity.Locacao;
 import lab.imobiliaria.Repository.LocacaoRepository;
 
 import javax.persistence.EntityManager;
@@ -40,6 +42,11 @@ public class CrudLocacao {
         imovel.setValorAlugelSugerido(new BigDecimal("2500.00"));
         imovel.setObs("Bem localizado");
 
+        // Persistindo o cliente e o imóvel primeiro
+        manager.persist(cliente);
+        manager.persist(imovel);
+        manager.flush();  // Garante que as IDs foram geradas
+
         Locacao locacao = new Locacao();
         locacao.setIdInquilino(cliente);
         locacao.setImovel(imovel);
@@ -48,9 +55,7 @@ public class CrudLocacao {
         locacao.setValorAluguel(new BigDecimal("2500.00"));
         locacao.setObs("Contrato anual");
 
-        // Persistindo as entidades
-        manager.persist(cliente);
-        manager.persist(imovel);
+        // Persistindo a locação
         locacaoRepository.criarOuAtualizar(locacao);
 
         transacao.commit();
