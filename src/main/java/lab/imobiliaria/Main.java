@@ -50,7 +50,7 @@ public class Main {
 
             Locacao locacao = new Locacao();
             locacao.setImovel(imovel);
-            
+
             locacao.setValorAluguel(new BigDecimal("1000.00"));
             locacao.setPecentualMulta(new BigDecimal("5.00"));
             locacao.setDataVencimento(5);
