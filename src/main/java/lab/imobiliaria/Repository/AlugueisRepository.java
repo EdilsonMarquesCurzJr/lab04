@@ -1,9 +1,7 @@
 package lab.imobiliaria.Repository;
 
 import lab.imobiliaria.Entity.Aluguel;
-import lab.imobiliaria.Entity.Cliente;
 import lab.imobiliaria.Entity.Imoveis;
-import lab.imobiliaria.Entity.Locacao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -46,16 +44,12 @@ public class AlugueisRepository {
     }
 
     public List<Imoveis> recuperarImoveisPorLimitePreco(BigDecimal limitePreco) {
-        // Verifique se há imóveis com locações ativas e abaixo do limite de preço
-        String jpql = "select distinct i from Imoveis i join i.idLocacoes l where i.valorAlugelSugerido <= :limitePreco and l.ativo = true";
+        String jpql = "select distinct i from Imoveis i left join i.idLocacoes l " +
+                "where i.valorAlugelSugerido <= :limitePreco " +
+                "and (l is null or l.ativo = false)";
         TypedQuery<Imoveis> query = em.createQuery(jpql, Imoveis.class);
         query.setParameter("limitePreco", limitePreco);
         List<Imoveis> resultList = query.getResultList();
-
-        // Adicione logs para depuração
-        System.out.println("Consulta executada: " + jpql);
-        System.out.println("Parâmetro limitePreco: " + limitePreco);
-        System.out.println("Resultados: " + resultList);
 
         return resultList;
     }

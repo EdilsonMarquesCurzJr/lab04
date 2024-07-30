@@ -14,13 +14,13 @@ public class ImoveisRepository {
         this.manager = manager;
     }
 
-    public Imoveis criarOuAtualizar(Imoveis movie) {
-        if (movie != null) {
-            this.manager.persist(movie);
+    public Imoveis criarOuAtualizar(Imoveis imovel) {
+        if (imovel != null) {
+            this.manager.persist(imovel);
         } else {
-            movie = this.manager.merge(movie);
+            imovel = this.manager.merge(imovel);
         }
-        return movie;
+        return imovel;
     }
 
     public Imoveis bucarPor(Integer id) {

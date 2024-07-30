@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -41,7 +42,7 @@ public @Data class Imoveis {
     private String obs;
 
     @OneToMany(mappedBy = "imovel")
-    private List<Locacao> idLocacoes;
+    private List<Locacao> idLocacoes = new ArrayList<>();
 
 
     @Override

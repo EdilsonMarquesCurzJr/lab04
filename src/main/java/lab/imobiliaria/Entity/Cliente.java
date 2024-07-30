@@ -12,6 +12,7 @@ public @Data class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Column(name = "ID")
     private Integer id;
     @Column(name = "NOME")
@@ -29,7 +30,7 @@ public @Data class Cliente {
     private List<Imoveis> imoveis;
 
     @OneToMany(mappedBy = "idInquilino" )
-    private List<Locacao> locacaos;
+    private List<Locacao> locacoes;
 
     @Override
     public String toString() {

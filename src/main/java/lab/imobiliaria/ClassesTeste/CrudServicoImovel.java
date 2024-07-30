@@ -95,6 +95,8 @@ public class CrudServicoImovel {
 
         // Certifique-se de ajustar o método se necessário, passando o ID do imóvel ou locação como parâmetro
         List<ServicoImovel> servicosPorLocacao = servicoImovelRepo.buscarServicosPorLocacao(locacao);
+        //servicoImovelRepo.listarServicosPorLocacao(locacao.getId());
+
         System.out.println("Serviços por locação: " + servicosPorLocacao);
 
         // Encerrando a transação e liberando recursos
