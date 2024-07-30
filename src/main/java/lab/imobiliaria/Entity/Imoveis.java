@@ -36,8 +36,8 @@ public @Data class Imoveis {
     private int suites;
     @Column(name = "VAGAS_GARAGEM")
     private int vagasGaragem;
-    @Column(name = "VALOR_ALUGEUL_SUGERIDO")
-    private BigDecimal valorAlugelSugerido;
+    @Column(name = "VALOR_ALUGUEL_SUGERIDO")
+    private BigDecimal valorAluguelSugerido;
     @Column(name = "OBS")
     private String obs;
 
@@ -59,7 +59,7 @@ public @Data class Imoveis {
                 ", banheiros=" + banheiros +
                 ", suites=" + suites +
                 ", vagasGaragem=" + vagasGaragem +
-                ", valorAlugelSugerido=" + valorAlugelSugerido +
+                ", valorAluguelSugerido=" + valorAluguelSugerido +
                 ", obs='" + obs + '\'' +
                 '}';
     }

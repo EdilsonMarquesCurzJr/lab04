@@ -39,7 +39,7 @@ public class CrudLocacao {
         imovel.setBanheiros(2);
         imovel.setSuites(1);
         imovel.setVagasGaragem(2);
-        imovel.setValorAlugelSugerido(new BigDecimal("2500.00"));
+        imovel.setValorAluguelSugerido(new BigDecimal("2500.00"));
         imovel.setObs("Bem localizado");
 
         // Persistindo o cliente e o imóvel primeiro

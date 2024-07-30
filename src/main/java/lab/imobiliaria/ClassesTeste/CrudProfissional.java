@@ -49,7 +49,7 @@ public class CrudProfissional {
             imovel.setBanheiros(2);
             imovel.setSuites(1);
             imovel.setVagasGaragem(2);
-            imovel.setValorAlugelSugerido(new BigDecimal("1500.00"));
+            imovel.setValorAluguelSugerido(new BigDecimal("1500.00"));
             imovel.setObs("Nenhuma observação");
             manager.persist(imovel);
 

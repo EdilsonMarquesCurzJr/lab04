@@ -45,7 +45,7 @@ public class CrudImoveis {
             imovelAlugado.setBanheiros(2);
             imovelAlugado.setSuites(1);
             imovelAlugado.setVagasGaragem(2);
-            imovelAlugado.setValorAlugelSugerido(new BigDecimal("1000.00"));
+            imovelAlugado.setValorAluguelSugerido(new BigDecimal("1000.00"));
             imovelAlugado.setObs("");
             imoveisRepo.criarOuAtualizar(imovelAlugado);
 
@@ -58,7 +58,7 @@ public class CrudImoveis {
             imovelVago.setBanheiros(2);
             imovelVago.setSuites(1);
             imovelVago.setVagasGaragem(0);
-            imovelVago.setValorAlugelSugerido(new BigDecimal("1500.00"));
+            imovelVago.setValorAluguelSugerido(new BigDecimal("1500.00"));
             imovelVago.setObs("");
             imoveisRepo.criarOuAtualizar(imovelVago);
 
@@ -75,7 +75,7 @@ public class CrudImoveis {
 
             Locacao locacao = new Locacao();
             locacao.setImovel(imovelAlugado);
-            locacao.setValorAluguel(imovelAlugado.getValorAlugelSugerido());
+            locacao.setValorAluguel(imovelAlugado.getValorAluguelSugerido());
             locacao.setPecentualMulta(new BigDecimal("5.00"));
             locacao.setDataVencimento(5);
             locacao.setDataInicio(LocalDate.of(2025, 1, 1));

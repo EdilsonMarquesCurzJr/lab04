@@ -45,7 +45,7 @@ public class AlugueisRepository {
 
     public List<Imoveis> recuperarImoveisPorLimitePreco(BigDecimal limitePreco) {
         String jpql = "select distinct i from Imoveis i left join i.idLocacoes l " +
-                "where i.valorAlugelSugerido <= :limitePreco " +
+                "where i.valorAluguelSugerido <= :limitePreco " +
                 "and (l is null or l.ativo = false)";
         TypedQuery<Imoveis> query = em.createQuery(jpql, Imoveis.class);
         query.setParameter("limitePreco", limitePreco);
@@ -54,14 +54,9 @@ public class AlugueisRepository {
         return resultList;
     }
 
-
-
-
-
     public List<Aluguel> recuperarAluguelPagoAtraso() {
         TypedQuery<Aluguel> query = em.createQuery("select a from Aluguel  a WHERE a.dataPagamento > a.dataVencimento", Aluguel.class);
         return query.getResultList();
     }
-
 
 }

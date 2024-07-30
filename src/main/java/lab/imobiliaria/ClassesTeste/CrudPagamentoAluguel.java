@@ -56,7 +56,7 @@ public class CrudPagamentoAluguel {
         imovel.setBanheiros(2);
         imovel.setSuites(1);
         imovel.setVagasGaragem(2);
-        imovel.setValorAlugelSugerido(BigDecimal.valueOf(1500.00));
+        imovel.setValorAluguelSugerido(BigDecimal.valueOf(1500.00));
         imovel.setObs("Excelente localização");
         manager.persist(imovel);
 
