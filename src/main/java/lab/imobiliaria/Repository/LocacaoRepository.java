@@ -15,7 +15,7 @@ public class LocacaoRepository {
     }
 
     public Locacao criarOuAtualizar(Locacao locacao) {
-        if(verificarDisponibilidadeImovel(locacao.getIdImovel())){
+        if(verificarDisponibilidadeImovel(locacao.getImovel())){
             if(locacao.getId() != null){
                 return em.merge(locacao);
             }else {
@@ -39,13 +39,11 @@ public class LocacaoRepository {
         return result;
     }
     public boolean verificarDisponibilidadeImovel(Imoveis imovelId) {
-        String jpql = "select l from Locacao l where l.idImovel.id = :imovelId and l.ativo = true";
+        String jpql = "select l from Locacao l where l.imovel.id = :imovelId and l.ativo = true";
         TypedQuery<Locacao> query = em.createQuery(jpql, Locacao.class);
         query.setParameter("imovelId", imovelId);
         List<Locacao> result = query.getResultList();
         return result.isEmpty();
     }
-
-
 
 }

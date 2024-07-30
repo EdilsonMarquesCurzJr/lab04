@@ -19,7 +19,7 @@ public @Data class Locacao {
     private Integer id;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_IMOVEL")
-    private Imoveis idImovel;
+    private Imoveis imovel;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_INQUILINO")
     private Cliente idInquilino;
@@ -43,7 +43,6 @@ public @Data class Locacao {
     public String toString() {
         return "Locacao{" +
                 "id=" + id +
-                ", idImovel=" + idImovel +
                 ", idInquilino=" + idInquilino +
                 ", valorAluguel=" + valorAluguel +
                 ", pecentualMulta=" + pecentualMulta +

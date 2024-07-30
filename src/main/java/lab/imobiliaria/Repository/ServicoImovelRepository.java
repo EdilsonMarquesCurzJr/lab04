@@ -36,7 +36,7 @@ public class ServicoImovelRepository {
     public List<ServicoImovel> buscarServicosPorLocacao(Locacao locacao) {
         String jpql = "SELECT s FROM ServicoImovel s WHERE s.idImovel = :idImovel";
         TypedQuery<ServicoImovel> query = em.createQuery(jpql, ServicoImovel.class);
-        query.setParameter("idImovel", locacao.getIdImovel());
+        query.setParameter("idImovel", locacao.getImovel().getId());
         return query.getResultList();
     }
 }

@@ -40,6 +40,9 @@ public @Data class Imoveis {
     @Column(name = "OBS")
     private String obs;
 
+    @OneToMany(mappedBy = "imovel")
+    private List<Locacao> idLocacoes;
+
 
     @Override
     public String toString() {

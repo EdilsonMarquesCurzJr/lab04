@@ -2,6 +2,7 @@ package lab.imobiliaria.Repository;
 
 import lab.imobiliaria.Entity.Aluguel;
 import lab.imobiliaria.Entity.Cliente;
+import lab.imobiliaria.Entity.Imoveis;
 import lab.imobiliaria.Entity.Locacao;
 
 import javax.persistence.EntityManager;
@@ -44,12 +45,23 @@ public class AlugueisRepository {
         return query.getResultList();
     }
 
-    public List<Aluguel> recuperarAluguelPorLimitePreco(BigDecimal limitePreco) {
-        String jpql = "select a from Aluguel a join a.idLocacao l where l.valorAluguel < :limitePreco and l.idInquilino =null and l.ativo = true ";
-        TypedQuery<Aluguel> query = em.createQuery(jpql, Aluguel.class);
+    public List<Imoveis> recuperarImoveisPorLimitePreco(BigDecimal limitePreco) {
+        // Verifique se há imóveis com locações ativas e abaixo do limite de preço
+        String jpql = "select distinct i from Imoveis i join i.idLocacoes l where i.valorAlugelSugerido <= :limitePreco and l.ativo = true";
+        TypedQuery<Imoveis> query = em.createQuery(jpql, Imoveis.class);
         query.setParameter("limitePreco", limitePreco);
-        return query.getResultList();
+        List<Imoveis> resultList = query.getResultList();
+
+        // Adicione logs para depuração
+        System.out.println("Consulta executada: " + jpql);
+        System.out.println("Parâmetro limitePreco: " + limitePreco);
+        System.out.println("Resultados: " + resultList);
+
+        return resultList;
     }
+
+
+
 
 
     public List<Aluguel> recuperarAluguelPagoAtraso() {
