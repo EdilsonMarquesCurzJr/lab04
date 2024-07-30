@@ -7,10 +7,10 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class ImoviesRepository {
+public class ImoveisRepository {
     private final EntityManager manager;
 
-    public ImoviesRepository(EntityManager manager) {
+    public ImoveisRepository(EntityManager manager) {
         this.manager = manager;
     }
 
