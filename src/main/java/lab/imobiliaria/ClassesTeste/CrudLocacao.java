@@ -11,6 +11,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 public class CrudLocacao {
 
@@ -56,13 +57,38 @@ public class CrudLocacao {
         locacao.setObs("Contrato anual");
 
         // Persistindo a locação
-        locacaoRepository.criarOuAtualizar(locacao);
 
+        Locacao locacao1Persisted = locacaoRepository.criarOuAtualizar(locacao);
+        System.out.println("Persistindo primeira locação...\n" + locacao1Persisted + "\n");
+        transacao.commit(); // Finaliza a transação para garantir persistência
+
+        // Inicia nova transação para a segunda locação
+        transacao.begin();
+        Locacao locacao2 = new Locacao();
+        locacao2.setIdInquilino(cliente);
+        locacao2.setImovel(imovel);
+        locacao2.setDataInicio(LocalDate.now());
+        locacao2.setDataFim(LocalDate.now().plusYears(2));
+        locacao2.setValorAluguel(new BigDecimal("2500.00"));
+        locacao2.setObs("Contrato bianual");
+
+        // Essa segunda locação deve ser barrada, pois a primeira está ativa
+
+        Locacao locacao2Persisted = locacaoRepository.criarOuAtualizar(locacao2);
+        System.out.println("Tentando persistir segunda locação...\n" + locacao2Persisted + "\n");
         transacao.commit();
+
+        // Busca todas as locações já feitas por determinado inquilino
+        List<Locacao> locacoesDoCliente = locacaoRepository.buscarTodos(cliente.getId());
+        System.out.println();
+        for (Locacao x : locacoesDoCliente) {
+            System.out.println(x);
+        }
 
         // Busca e exibe a locação salva
         Locacao locacaoSalva = locacaoRepository.buscarPorId(locacao.getId());
-        System.out.println(locacaoSalva);
+        System.out.println();
+        System.out.println("Locação buscada por id: " + locacaoSalva);
 
         manager.close();
         factory.close();

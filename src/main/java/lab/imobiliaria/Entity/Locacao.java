@@ -58,6 +58,10 @@ public @Data class Locacao {
     @PostPersist
     @PostUpdate
     public void atualizarDisponibilidade() {
-        this.ativo = idInquilino == null;
+        if (idInquilino == null) {
+            this.ativo = false;
+        } else {
+            this.ativo = true;
+        }
     }
 }
