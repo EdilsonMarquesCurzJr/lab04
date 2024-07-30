@@ -8,7 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.math.BigDecimal;
 
-public class InserirImoveis {
+public class TesteInserirImoveis {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("lab_jpa");
         EntityManager em = null;
