@@ -12,7 +12,7 @@ public @Data class TipoImovel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Integer id;
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", nullable = false)
     private String descricao;
 
     @Override

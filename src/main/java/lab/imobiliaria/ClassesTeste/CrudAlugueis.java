@@ -2,6 +2,7 @@ package lab.imobiliaria.ClassesTeste;
 
 import lab.imobiliaria.Entity.Aluguel;
 import lab.imobiliaria.Entity.Cliente;
+import lab.imobiliaria.Entity.Imoveis;
 import lab.imobiliaria.Entity.Locacao;
 import lab.imobiliaria.Repository.AlugueisRepository;
 
@@ -81,7 +82,15 @@ public class CrudAlugueis {
         for (Aluguel aluguel : alugueisAtraso) {
             System.out.println(aluguel);
         }
+
+        List<Imoveis> imoveisPorLimitePreco = alugueisRepository.recuperarImoveisPorLimitePreco(new BigDecimal("2320.00"));
+        for (Imoveis imoveis : imoveisPorLimitePreco) {
+            System.out.println(imoveis);
+        }
         em.close();
         emf.close();
     }
+
+
+
 }

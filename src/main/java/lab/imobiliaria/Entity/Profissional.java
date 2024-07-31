@@ -16,9 +16,11 @@ public @Data class Profissional {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Integer id;
-    @Column(name = "NOME")
+    @Column(name = "PROFISSAO",  nullable = false)
+    private String profissao;
+    @Column(name = "NOME",  nullable = false)
     private String nome;
-    @Column(name = "TELEFONE1")
+    @Column(name = "TELEFONE1",  nullable = false)
     private String telefone1;
     @Column(name = "TELEFONE2")
     private String telefone2;

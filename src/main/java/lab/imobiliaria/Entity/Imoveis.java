@@ -20,11 +20,11 @@ public @Data class Imoveis {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_TIPO_IMOVEL")
     private TipoImovel idTipoImovel;
-    @Column(name = "LOGRADOURO")
+    @Column(name = "LOGRADOURO", nullable = false)
     private String logradouro;
-    @Column(name = "BAIRRO")
+    @Column(name = "BAIRRO",  nullable = false)
     private String bairro;
-    @Column(name = "CEP")
+    @Column(name = "CEP",  nullable = false)
     private String cep;
     @Column(name = "METRAGEM")
     private Integer metragem;

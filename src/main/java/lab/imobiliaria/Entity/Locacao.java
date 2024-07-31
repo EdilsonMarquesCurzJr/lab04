@@ -23,17 +23,17 @@ public @Data class Locacao {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_INQUILINO")
     private Cliente idInquilino;
-    @Column(name = "VALOR_ALUGUEL")
+    @Column(name = "VALOR_ALUGUEL",  nullable = false)
     private BigDecimal valorAluguel;
     @Column(name = "PECENTUAL_MULTA")
     private BigDecimal pecentualMulta;
-    @Column(name = "DIA_VENCIMENTO")
+    @Column(name = "DIA_VENCIMENTO",  nullable = false)
     private int dataVencimento;
-    @Column(name = "DATA_INICIO")
+    @Column(name = "DATA_INICIO", nullable = false)
     private LocalDate dataInicio;
     @Column(name = "DATA_FIM")
     private LocalDate dataFim;
-    @Column(name = "ATIVO")
+    @Column(name = "ATIVO", nullable = false)
     private boolean ativo;
     @Column(name = "OBS")
     private String obs;

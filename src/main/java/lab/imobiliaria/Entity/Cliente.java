@@ -15,11 +15,11 @@ public @Data class Cliente {
 
     @Column(name = "ID")
     private Integer id;
-    @Column(name = "NOME")
+    @Column(name = "NOME", nullable = false)
     private String nome;
-    @Column(name = "CPF")
+    @Column(name = "CPF", nullable = false)
     private String cpf;
-    @Column(name = "TELEFONE")
+    @Column(name = "TELEFONE",  nullable = false)
     private String telefone;
     @Column(name = "EMAIL")
     private String email;

@@ -55,6 +55,7 @@ public class CrudServicoImovel {
         profissional.setTelefone2("985741476");
         profissional.setValorHora(new BigDecimal("70.00"));
         profissional.setObs("Nenhuma observação.");
+        profissional.setProfissao("qwerqw");
         manager.persist(profissional);
 
         // Criação do serviço no imóvel

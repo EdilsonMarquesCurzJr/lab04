@@ -60,6 +60,7 @@ public class CrudProfissional {
             profissional.setTelefone2("877777777");
             profissional.setValorHora(new BigDecimal("50.00"));
             profissional.setObs("Nenhuma observação");
+            profissional.setProfissao("asda");
             manager.persist(profissional);
 
             // Criação de um serviço no imóvel

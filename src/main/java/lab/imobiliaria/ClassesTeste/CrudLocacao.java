@@ -30,6 +30,7 @@ public class CrudLocacao {
         cliente.setNome("Maria");
         cliente.setTelefone("123456789");
         cliente.setEmail("maria@example.com");
+        cliente.setCpf("123456789");
 
         Imoveis imovel = new Imoveis();
         imovel.setLogradouro("Rua das Palmeiras");
